@@ -1,0 +1,52 @@
+name: Build and publish Docker images for devcontainer
+
+on: 
+  push:
+    branches: 
+    - "main"
+    paths: 
+    - "Dockerfile"
+    - ".github/workflows/publish_docker.yml"
+
+jobs:
+  build-and-publish:
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        baseImage: [
+          "quay.io/pypa/manylinux2014_x86_64",
+          "quay.io/pypa/manylinux2014_i686",
+          "quay.io/pypa/manylinux2014_aarch64",
+          "quay.io/pypa/manylinux2014_ppc64le",
+          "quay.io/pypa/manylinux2014_s390x",
+          "quay.io/pypa/manylinux2014_aarch64",
+          "quay.io/pypa/manylinux2014_i686",
+          "quay.io/pypa/musllinux_1_2_x86_64",
+          "quay.io/pypa/musllinux_1_2_aarch64",
+        ]
+        
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to ghcr.io
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: baseImage=${{ matrix.baseImage }}
+        tags: ghcr.io/musicalninjas/${{ matrix.baseImage }}-rust
