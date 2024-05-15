@@ -22,8 +22,6 @@ jobs:
           "quay.io/pypa/manylinux2014_aarch64",
           "quay.io/pypa/manylinux2014_ppc64le",
           "quay.io/pypa/manylinux2014_s390x",
-          "quay.io/pypa/manylinux2014_aarch64",
-          "quay.io/pypa/manylinux2014_i686",
           "quay.io/pypa/musllinux_1_2_x86_64",
           "quay.io/pypa/musllinux_1_2_aarch64",
         ]
@@ -31,6 +29,11 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: all
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
