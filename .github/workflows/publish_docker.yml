@@ -15,18 +15,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        baseImage: [
-          "quay.io/pypa/manylinux2014_x86_64",
-          "quay.io/pypa/manylinux2014_i686",
-          "quay.io/pypa/manylinux2014_aarch64",
-          "quay.io/pypa/manylinux2014_ppc64le",
-          "quay.io/pypa/manylinux2014_s390x",
-          "quay.io/pypa/musllinux_1_2_x86_64",
-          "quay.io/pypa/musllinux_1_2_aarch64",
-        ]
         include:
+        - baseImage: "quay.io/pypa/manylinux2014_x86_64"
+          platform: "linux/amd64"
         - baseImage: "quay.io/pypa/manylinux2014_i686"
           rustup_options: "--default-host i686-unknown-linux-gnu" # not correctly identified by rustup under QEMU on x64
+          platform: "linux/386"
+        - baseImage: "quay.io/pypa/manylinux2014_aarch64"
+          platform: "linux/arm64/v8"
+        - baseImage: "quay.io/pypa/manylinux2014_ppc64le"
+          platform: "linux/ppc64le"
+        - baseImage: "quay.io/pypa/manylinux2014_s390x"
+          platform: "linux/s390x"
+        - baseImage: "quay.io/pypa/musllinux_1_2_x86_64"
+          platform: "linux/amd64"
+        - baseImage: "quay.io/pypa/musllinux_1_2_aarch64"
+          platform: "linux/arm64/v8"
 
     steps:
     - name: checkout
@@ -54,6 +58,7 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        platforms: ${{ matrix.platform }}
         build-args: |
           baseImage=${{ matrix.baseImage }}
           rustup_options=${{ matrix.rustup_options }}
