@@ -26,7 +26,7 @@ jobs:
         ]
         include:
         - baseImage: "quay.io/pypa/manylinux2014_i686"
-          rustup_options: "--default-host i686-unknown-linux-gnu"
+          rustup_options: "--default-host i686-unknown-linux-gnu" # not correctly identified by rustup under QEMU on x64
 
     steps:
     - name: checkout
