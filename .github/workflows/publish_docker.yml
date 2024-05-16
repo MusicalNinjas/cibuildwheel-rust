@@ -14,7 +14,6 @@ jobs:
       packages: write
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         baseImage: [
           "quay.io/pypa/manylinux2014_x86_64",
@@ -25,7 +24,10 @@ jobs:
           "quay.io/pypa/musllinux_1_2_x86_64",
           "quay.io/pypa/musllinux_1_2_aarch64",
         ]
-        
+        include:
+        - baseImage: "quay.io/pypa/manylinux2014_i686"
+          rustup_options: "--default-host i686-unknown-linux-gnu"
+
     steps:
     - name: checkout
       uses: actions/checkout@v4
@@ -52,5 +54,7 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: baseImage=${{ matrix.baseImage }}
+        build-args: |
+          baseImage=${{ matrix.baseImage }}
+          rustup_options=${{ matrix.rustup_options }}
         tags: ghcr.io/musicalninjas/${{ matrix.baseImage }}-rust
