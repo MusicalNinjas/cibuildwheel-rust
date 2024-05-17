@@ -26,6 +26,8 @@ runs:
       repository: musicalninjas/cibuildwheel-rust
       ref: build_pypa
       path: cibw-ru
+  - run: pwd && ls -al ./cibw-ru
+    shell: bash
   - uses: ./cibw-ru/.github/actions/build.yml
     with:
       prefix: $INPUTS_PREFIX
