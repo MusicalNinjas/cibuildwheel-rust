@@ -25,7 +25,8 @@ runs:
     with:
       repository: musicalninjas/cibuildwheel-rust
       ref: build_pypa
-  - uses: ./.github/actions/build.yml
+      path: cibw-ru
+  - uses: ./cibw-ru/.github/actions/build.yml
     with:
       prefix: $INPUTS_PREFIX
       wheels-location: $INPUTS_WHEELS_LOCATION
