@@ -18,10 +18,13 @@ inputs:
       default: './dist'
       required: false
 runs:
-  using: composite
+  using: 'composite'
   steps:
-    - uses: ./.github/actions/build.yml
-      with:
-        prefix: $INPUTS_PREFIX
-        wheels-location: $INPUTS_WHEELS_LOCATION
-        sdist-location: $INPUTS_SDIST_LOCATION
+  - name: greet
+    shell: bash
+    run: echo "hello $INPUTS_PREFIX $INPUTS_WHEELS_LOCATION $INPUTS_SDIST_LOCATION"
+  # - uses: ./.github/actions/build.yml
+  #   with:
+  #     prefix: $INPUTS_PREFIX
+  #     wheels-location: $INPUTS_WHEELS_LOCATION
+  #     sdist-location: $INPUTS_SDIST_LOCATION
