@@ -17,10 +17,14 @@ inputs:
       description: 'Where to temporarily store the sdist. Defaults to: `./dist`. You should not usually need to change this.'
       default: './dist'
       required: false
+
 runs:
   using: 'composite'
   steps:
   - uses: actions/checkout@v4
+    with:
+      repository: musicalninjas/cibuildwheel-rust
+      ref: build_pypa
   - uses: ./.github/actions/build.yml
     with:
       prefix: $INPUTS_PREFIX
