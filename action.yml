@@ -20,7 +20,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: ./.github/workflows/build.yml
+    - uses: ./.github/actions/build.yml
       with:
         prefix: $INPUTS_PREFIX
         wheels-location: $INPUTS_WHEELS_LOCATION
