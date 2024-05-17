@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+name: cibuildwheel-rust
+description: 'Runs cibuildwheel for all viable targets in a matrix of containers with rust & just pre-installed. Designed for speed of completion.'
+author: MusicalNinjaDad
+branding:
+  icon: package
+inputs:
+  prefix:
+    description: 'The filename prefix for wheels and sdist, use this as the basis for `with: pattern:` in `actions/download-artifact`. Defaults to `cibw`'
+    default: cibw
+    required: false
+  wheels-location:
+    description: 'Where to temporarily store the wheels. Defaults to: `./wheelhouse`. You should not usually need to change this.'
+    default: './wheelhouse'
+    required: false
+  sdist-location:
+      description: 'Where to temporarily store the sdist. Defaults to: `./dist`. You should not usually need to change this.'
+      default: './dist'
+      required: false
+runs:
+  using: composite
+  steps:
+    - uses: ./build.yml
+      with:
+        prefix: $INPUTS_PREFIX
+        wheels-location: $INPUTS_WHEELS_LOCATION
+        sdist-location: $INPUTS_SDIST_LOCATION
