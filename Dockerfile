@@ -1,5 +1,6 @@
-# Dependabot can't decode the yyyy-mm-dd-sha format used by cibuildwheel. Trying to use latest@sha256: instead
-ARG baseImage=quay.io/pypa/manylinux2014_x86_64:latest@sha256:b31275b340d8661e45a9eed29ca93d605a702557781fa65a7cb35bc9639165adsha256:b31275b340d8661e45a9eed29ca93d605a702557781fa65a7cb35bc9639165ad
+# Dependabot can't decode the yyyy-mm-dd-sha format used by cibuildwheel, so no point in restricting tags here.
+# (See https://github.com/pypa/cibuildwheel/discussions/1858)
+ARG baseImage=quay.io/pypa/manylinux2014_x86_64
 FROM ${baseImage}
 
 ARG rustup_options=
