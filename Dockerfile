@@ -1,6 +1,6 @@
 # Dependabot can't decode the yyyy-mm-dd-sha format used by cibuildwheel, so no point in restricting tags here.
 # (See https://github.com/pypa/cibuildwheel/discussions/1858)
-ARG baseImage=quay.io/pypa/manylinux2014_x86_64:2024.06.08.2
+ARG baseImage=quay.io/pypa/manylinux2014_x86_64:2024.06.08-2
 FROM ${baseImage}
 
 ARG rustup_options=
