@@ -1,12 +1,14 @@
 name: Build and publish Docker images for devcontainer
 
 on: 
+  workflow_dispatch:  
   push:
     branches: 
     - "main"
     paths: 
     - "Dockerfile"
-    - ".github/workflows/publish_docker.yml"
+    - "x86_64/Dockerfile" # triggered by dependabot ;)
+    # - ".github/workflows/publish_docker.yml"
 
 jobs:
   build-and-publish:
