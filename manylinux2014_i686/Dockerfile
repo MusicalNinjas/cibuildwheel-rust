@@ -1,4 +1,5 @@
-ARG rustup_options=
+ARG rustup_options="--default-host i686-unknown-linux-gnu" 
+# not correctly identified by rustup under QEMU on x64
 
 FROM quay.io/pypa/manylinux2014_x86_64:2024.06.09-3
 
