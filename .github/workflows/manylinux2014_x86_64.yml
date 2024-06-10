@@ -12,6 +12,5 @@ jobs:
   build-and-publish:
     uses: "./.github/workflows/publish_docker.yml"
     with:
-      dockerfile: "x86_64/Dockerfile"
       imagename: "manylinux2014_x86_64"
       platform: "linux/amd64"
