@@ -1,39 +1,23 @@
-name: Build and publish Docker images for devcontainer
+name: Build and publish Docker images
 
 on: 
-  workflow_dispatch:  
-  push:
-    branches: 
-    - "main"
-    paths: 
-    - "Dockerfile"
-    - "x86_64/Dockerfile" # triggered by dependabot ;)
-    # - ".github/workflows/publish_docker.yml"
+  workflow_call:   
+    inputs:
+      imagename:
+        description: 'Base name to use for uploaded image: E.g.: "manylinux2014_x86_64"'
+        type: string
+        required: true
+      platform:
+        description: 'Platform to build for. E.g.: "linux/amd64" or "linux/arm64/v8"'
+        type: string
+        required: true
 
 jobs:
   build-and-publish:
-    name: build ${{ matrix.baseImage }}
+    name: build ${{ inputs.imagename }}
     permissions:
       packages: write
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-        - baseImage: "manylinux2014_x86_64"
-          platform: "linux/amd64"
-        - baseImage: "manylinux2014_i686"
-          rustup_options: "--default-host i686-unknown-linux-gnu" # not correctly identified by rustup under QEMU on x64
-          platform: "linux/386"
-        - baseImage: "manylinux2014_aarch64"
-          platform: "linux/arm64/v8"
-        - baseImage: "manylinux2014_ppc64le"
-          platform: "linux/ppc64le"
-        - baseImage: "manylinux2014_s390x"
-          platform: "linux/s390x"
-        - baseImage: "musllinux_1_2_x86_64"
-          platform: "linux/amd64"
-        - baseImage: "musllinux_1_2_aarch64"
-          platform: "linux/arm64/v8"
 
     steps:
     - name: checkout
@@ -57,12 +41,9 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
-        context: .
+        context: ${{ inputs.imagename }}
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        platforms: ${{ matrix.platform }}
-        build-args: |
-          baseImage=quay.io/pypa/${{ matrix.baseImage }}
-          rustup_options=${{ matrix.rustup_options }}
-        tags: ghcr.io/musicalninjas/${{ matrix.baseImage }}-rust
+        platforms: ${{ inputs.platform }}
+        tags: ghcr.io/musicalninjas/${{ inputs.imagename }}-rust
