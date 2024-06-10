@@ -1,0 +1,16 @@
+name: Build and publish musllinux_1_2_x86_64
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: 
+    - "main"
+    paths:
+    - "musllinux_1_2_x86_64/Dockerfile"
+
+jobs:
+  build-and-publish:
+    uses: "./.github/workflows/publish_docker.yml"
+    with:
+      imagename: "musllinux_1_2_x86_64"
+      platform: "linux/amd64"
