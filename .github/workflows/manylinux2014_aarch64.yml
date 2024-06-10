@@ -13,4 +13,4 @@ jobs:
     uses: "./.github/workflows/publish_docker.yml"
     with:
       imagename: "manylinux2014_aarch64"
-      platform: "linux/amd64"
+      platform: "linux/arm64/v8"
