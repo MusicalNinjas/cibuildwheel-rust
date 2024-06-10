@@ -1,5 +1,3 @@
-ARG rustup_options=
-
 FROM quay.io/pypa/manylinux2014_ppc64le:2024.06.09-5
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal ${rustup_options}
