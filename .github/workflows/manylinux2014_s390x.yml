@@ -1,0 +1,16 @@
+name: Build and publish manylinux2014_s390x
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: 
+    - "main"
+    paths:
+    - "manylinux2014_s390x/Dockerfile"
+
+jobs:
+  build-and-publish:
+    uses: "./.github/workflows/publish_docker.yml"
+    with:
+      imagename: "manylinux2014_s390x"
+      platform: "linux/s390x"
