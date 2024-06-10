@@ -14,3 +14,5 @@ jobs:
     with:
       imagename: "manylinux2014_i686"
       platform: "linux/386"
+    permissions: 
+      packages: write

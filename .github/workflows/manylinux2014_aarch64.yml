@@ -14,3 +14,5 @@ jobs:
     with:
       imagename: "manylinux2014_aarch64"
       platform: "linux/arm64/v8"
+    permissions: 
+      packages: write
