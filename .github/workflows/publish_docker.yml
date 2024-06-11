@@ -34,6 +34,7 @@ jobs:
       with:
         images: |
           ghcr.io/musicalninjas/${{ inputs.imagename }}-rust
+          ghcr.io/quay.io/pypa/musicalninjas/${{ inputs.imagename }}-rust
         flavor: |
           latest=true
         tags: |
