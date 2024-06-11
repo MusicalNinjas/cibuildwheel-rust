@@ -35,7 +35,7 @@ jobs:
         images: |
           ghcr.io/musicalninjas/${{ inputs.imagename }}-rust
         flavor: |
-          latest=auto
+          latest=true
         tags: |
           type=raw,${{ steps.tag.outputs.TAG }}
 
