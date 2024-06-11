@@ -1,5 +1,7 @@
 name: Build and publish manylinux2014_ppc64le
 
+concurrency: manylinux2014_ppc64le
+
 on: 
   workflow_dispatch:
   push:

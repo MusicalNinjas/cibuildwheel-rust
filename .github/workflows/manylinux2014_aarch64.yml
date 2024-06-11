@@ -1,5 +1,7 @@
 name: Build and publish manylinux2014_aarch64
 
+concurrency: manylinux2014_aarch64
+
 on: 
   workflow_dispatch:
   push:

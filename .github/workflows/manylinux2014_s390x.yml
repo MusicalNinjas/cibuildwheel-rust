@@ -1,5 +1,7 @@
 name: Build and publish manylinux2014_s390x
 
+concurrency: manylinux2014_s390x
+
 on: 
   workflow_dispatch:
   push:

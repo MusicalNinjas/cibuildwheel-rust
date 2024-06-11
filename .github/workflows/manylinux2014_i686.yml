@@ -1,5 +1,7 @@
 name: Build and publish manylinux2014_i686
 
+concurrency: manylinux2014_i686
+
 on: 
   workflow_dispatch:
   push:

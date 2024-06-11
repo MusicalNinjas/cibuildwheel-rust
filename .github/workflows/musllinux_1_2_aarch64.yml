@@ -1,5 +1,7 @@
 name: Build and publish musllinux_1_2_aarch64
 
+concurrency: musllinux_1_2_aarch64
+
 on: 
   workflow_dispatch:
   push:
