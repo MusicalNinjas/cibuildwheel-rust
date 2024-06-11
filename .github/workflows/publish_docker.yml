@@ -23,6 +23,22 @@ jobs:
     - name: checkout
       uses: actions/checkout@v4
 
+    - name: get tag
+      id: tag
+      run: |
+        echo "TAG=$(grep FROM ${{ inputs.imagename }}/Dockerfile | awk --field-separator=':' '{ print $2 }')" >> "$GITHUB_OUTPUT"
+
+    - name: set docker metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          ghcr.io/musicalninjas/${{ inputs.imagename }}-rust
+        flavor: |
+          latest=auto
+        tags: |
+          type=raw,${{ steps.tag.outputs.TAG }}
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
       with:
@@ -46,4 +62,5 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         platforms: ${{ inputs.platform }}
-        tags: ghcr.io/musicalninjas/${{ inputs.imagename }}-rust
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
