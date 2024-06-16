@@ -1,4 +1,4 @@
-FROM quay.io/pypa/musllinux_1_2_aarch64:2024.06.09-5
+FROM quay.io/pypa/musllinux_1_2_aarch64:2024.06.12-1
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal ${rustup_options}
 ENV PATH=/root/.cargo/bin:$PATH
