@@ -11,3 +11,13 @@ jobs:
       pull-requests: write
     steps:
       - uses: hmarr/auto-approve-action@v4
+
+  debug-label:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "labels are ${{ github.event.pull_request.labels }}"
+
+  debug-actor:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "actor is ${{ github.actor }}"
