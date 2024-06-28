@@ -5,7 +5,7 @@ on: pull_request
 
 jobs:
   auto-approve:
-    if: contains(github.event.pull_request.labels, 'docker') && github.actor == 'dependabot[bot]'
+    if: contains(github.event.pull_request.labels.*.name, 'docker') && github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -14,8 +14,10 @@ jobs:
 
   debug-label:
     runs-on: ubuntu-latest
+    env:
+      labels: ${{ github.event.pull_request.labels.*.name }}
     steps:
-      - run: echo "labels are ${{ github.event.pull_request.labels }}"
+      - run: echo "labels are $LABELS"
 
   debug-actor:
     runs-on: ubuntu-latest
